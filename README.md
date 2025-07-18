@@ -45,7 +45,7 @@ my-mcp-function/
 1. **Clone the repository**
 
    ```bash
-   git clone [<repository-url>](https://github.com/PlumyCat/mcp-func-foundry-temp.git)
+   git clone https://github.com/PlumyCat/mcp-func-foundry-temp.git
    cd my-mcp-function
    ```
 
