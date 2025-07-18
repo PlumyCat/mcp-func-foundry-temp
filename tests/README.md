@@ -1,80 +1,80 @@
-# Guide d'utilisation des tests REST Client
+# REST Client Test Guide
 
-## Prérequis
+## Prerequisites
 
-1. **Extension REST Client** : Assurez-vous d'avoir installé l'extension REST Client dans VS Code
-2. **Fonction Azure en cours d'exécution** : Démarrez votre fonction Azure localement avec `func start`
+1. **REST Client Extension**: Make sure you have installed the REST Client extension in VS Code
+2. **Azure Function running**: Start your Azure Function locally with `func start`
 
-## Structure des tests
+## Test Structure
 
-Le dossier `tests` contient les fichiers suivants :
+The `tests` folder contains the following files:
 
-### 📁 Fichiers de test
+### 📁 Test Files
 
-- **`mcp-server.http`** : Tests fonctionnels principaux
-  - Tests GET et POST
-  - Requêtes MCP valides
-  - Tests d'erreurs de base (400, 405)
+- **`mcp-server.http`**: Main functional tests
+  - GET and POST tests
+  - Valid MCP requests
+  - Basic error tests (400, 405)
 
-- **`performance.http`** : Tests de performance
-  - Tests de charge avec requêtes multiples
-  - Tests avec payloads de différentes tailles
-  - Tests de timeout
+- **`performance.http`**: Performance tests
+  - Load tests with multiple requests
+  - Tests with different payload sizes
+  - Timeout tests
 
-- **`error-cases.http`** : Tests de cas d'erreur
-  - JSON malformé
-  - Caractères spéciaux
-  - Cas limites et edge cases
+- **`error-cases.http`**: Error case tests
+  - Malformed JSON
+  - Special characters
+  - Edge cases and limits
 
-- **`http-client.env.json`** : Configuration des environnements
-  - Environnement de développement (local)
-  - Environnement de staging
-  - Environnement de production
+- **`http-client.env.json`**: Environment configuration
+  - Development environment (local)
+  - Staging environment
+  - Production environment
 
-## Comment utiliser
+## How to Use
 
-### 1. Démarrer la fonction Azure
+### 1. Start the Azure Function
 
 ```bash
-# Dans le terminal, depuis le dossier racine de votre fonction
+# In the terminal, from your function's root folder
 func start
 ```
 
-### 2. Exécuter les tests
+### 2. Run the tests
 
-1. Ouvrez un fichier `.http` dans VS Code
-2. Cliquez sur "Send Request" au-dessus de chaque requête
-3. Ou utilisez le raccourci `Ctrl+Alt+R` (Windows/Linux) ou `Cmd+Alt+R` (Mac)
+1. Open a `.http` file in VS Code
+2. Click "Send Request" above each request
+3. Or use the shortcut `Ctrl+Alt+R` (Windows/Linux) or `Cmd+Alt+R` (Mac)
 
-### 3. Changer d'environnement
+### 3. Switch environment
 
-Pour utiliser un environnement différent :
+To use a different environment:
 
-1. Ouvrez la palette de commandes (`Ctrl+Shift+P`)
-2. Tapez "REST Client: Switch Environment"
-3. Sélectionnez l'environnement désiré (dev, staging, production)
+1. Open the command palette (`Ctrl+Shift+P`)
+2. Type "REST Client: Switch Environment"
+3. Select the desired environment (dev, staging, production)
 
-## Types de tests inclus
+## Included Test Types
 
-### ✅ Tests fonctionnels
-- Vérification du statut du serveur (GET)
-- Requêtes MCP valides (POST)
-- Gestion des erreurs courantes
+### ✅ Functional tests
+- Server status check (GET)
+- Valid MCP requests (POST)
+- Common error handling
 
-### ⚡ Tests de performance
-- Requêtes multiples simultanées
-- Payloads de tailles variées
-- Tests de timeout
+### ⚡ Performance tests
+- Multiple simultaneous requests
+- Various payload sizes
+- Timeout tests
 
-### 🚨 Tests d'erreur
-- JSON malformé
-- Méthodes HTTP non supportées
-- Caractères spéciaux et cas limites
-- Requêtes sans body ou avec Content-Type incorrect
+### 🚨 Error tests
+- Malformed JSON
+- Unsupported HTTP methods
+- Special characters and edge cases
+- Requests without body or with incorrect Content-Type
 
-## Résultats attendus
+## Expected Results
 
-### Réponses de succès (200)
+### Success responses (200)
 ```json
 {
   "message": "MCP Server is running",
@@ -82,21 +82,21 @@ Pour utiliser un environnement différent :
 }
 ```
 
-### Réponses d'erreur
-- **400** : Bad Request (JSON invalide, pas de body)
-- **405** : Method Not Allowed (méthode HTTP non supportée)
-- **500** : Internal Server Error (erreur interne)
+### Error responses
+- **400**: Bad Request (invalid JSON, no body)
+- **405**: Method Not Allowed (unsupported HTTP method)
+- **500**: Internal Server Error (internal error)
 
-## Personnalisation
+## Customization
 
-### Modifier les URLs
-Éditez le fichier `http-client.env.json` pour pointer vers vos propres environnements Azure.
+### Edit URLs
+Edit the `http-client.env.json` file to point to your own Azure environments.
 
-### Ajouter de nouveaux tests
-Créez de nouveaux fichiers `.http` ou ajoutez des tests aux fichiers existants en suivant le format :
+### Add new tests
+Create new `.http` files or add tests to existing files using the format:
 
 ```http
-### Description du test
+### Test description
 POST {{baseUrl}}/api/{{functionName}}
 Content-Type: application/json
 
@@ -108,16 +108,16 @@ Content-Type: application/json
 }
 ```
 
-## Bonnes pratiques
+## Best Practices
 
-1. **Organisez vos tests** : Séparez les tests par fonctionnalité
-2. **Utilisez les variables** : Profitez des variables d'environnement
-3. **Documentez vos tests** : Ajoutez des commentaires descriptifs
-4. **Testez tous les cas** : Incluez les cas de succès et d'erreur
-5. **Vérifiez les réponses** : Examinez les codes de statut et les réponses JSON
+1. **Organize your tests**: Separate tests by feature
+2. **Use variables**: Take advantage of environment variables
+3. **Document your tests**: Add descriptive comments
+4. **Test all cases**: Include both success and error cases
+5. **Check responses**: Review status codes and JSON responses
 
-## Dépannage
+## Troubleshooting
 
-- **Erreur de connexion** : Vérifiez que la fonction Azure est démarrée
-- **Port différent** : Modifiez le `baseUrl` dans `http-client.env.json`
-- **Timeout** : Ajustez la valeur `timeout` dans la configuration
+- **Connection error**: Make sure the Azure Function is running
+- **Different port**: Change the `baseUrl` in `http-client.env.json`
+- **Timeout**: Adjust the `timeout` value in the configuration

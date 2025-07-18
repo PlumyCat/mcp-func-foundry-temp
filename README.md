@@ -1,62 +1,63 @@
+
 # Azure Functions MCP Server
 
-Un serveur MCP (Model Context Protocol) déployé sur Azure Functions avec intégration Azure AI Foundry.
+A Model Context Protocol (MCP) server deployed on Azure Functions with Azure AI Foundry integration.
 
-## 🚀 Fonctionnalités
+## 🚀 Features
 
-- **Serveur MCP** : Implémentation complète du protocole MCP 2024-11-05
-- **Azure Functions** : Déploiement serverless avec montée en charge automatique
-- **Azure AI Foundry** : Intégration avec les services Azure AI
-- **FastAPI** : API moderne et performante avec documentation automatique
-- **Tests intégrés** : Suite de tests REST Client pour validation
+- **MCP Server**: Full implementation of MCP protocol 2024-11-05
+- **Azure Functions**: Serverless deployment with automatic scaling
+- **Azure AI Foundry**: Integration with Azure AI services
+- **FastAPI**: Modern, high-performance API with automatic documentation
+- **Integrated tests**: REST Client test suite for validation
 
-## 📁 Structure du projet
+## 📁 Project Structure
 
 ```text
 my-mcp-function/
-├── function_app.py           # Handler Azure Function principal
-├── host.json                 # Configuration Azure Functions
-├── local.settings.json       # Variables d'environnement locales
-├── requirements.txt          # Dépendances Python
-├── deploy.md                 # Guide de déploiement
-├── mcp_server/              # Module serveur MCP
+├── function_app.py           # Main Azure Function handler
+├── host.json                 # Azure Functions configuration
+├── local.settings.json       # Local environment variables
+├── requirements.txt          # Python dependencies
+├── deploy.md                 # Deployment guide
+├── mcp_server/              # MCP server module
 │   ├── __init__.py
-│   └── main.py              # Logique FastAPI et MCP
-└── tests/                   # Tests et validation
-    ├── README.md            # Guide des tests
-    ├── mcp-server.http      # Tests fonctionnels
-    ├── performance.http     # Tests de performance
-    ├── error-cases.http     # Tests d'erreurs
-    └── azure-ai-tools.http  # Tests Azure AI
+│   └── main.py              # FastAPI and MCP logic
+└── tests/                   # Tests and validation
+    ├── README.md            # Test guide
+    ├── mcp-server.http      # Functional tests
+    ├── performance.http     # Performance tests
+    ├── error-cases.http     # Error tests
+    └── azure-ai-tools.http  # Azure AI tests
 ```
 
 ## 🛠️ Installation
 
-### Prérequis
+### Prerequisites
 
 - Python 3.8+
 - Azure Functions Core Tools
-- Azure CLI (pour le déploiement)
-- VS Code avec l'extension REST Client (pour les tests)
+- Azure CLI (for deployment)
+- VS Code with REST Client extension (for tests)
 
-### Installation locale
+### Local Installation
 
-1. **Cloner le repository**
+1. **Clone the repository**
 
    ```bash
    git clone <repository-url>
    cd my-mcp-function
    ```
 
-2. **Installer les dépendances**
+2. **Install dependencies**
 
    ```bash
    pip install -r requirements.txt
    ```
 
-3. **Configurer les variables d'environnement**
+3. **Configure environment variables**
    
-   Copiez `local.settings.json.example` vers `local.settings.json` et configurez :
+   Copy `local.settings.json.example` to `local.settings.json` and configure:
 
    ```json
    {
@@ -74,35 +75,35 @@ my-mcp-function/
    }
    ```
 
-## 🚀 Démarrage
+## 🚀 Getting Started
 
-### Développement local
+### Local Development
 
-1. **Démarrer la fonction Azure**
+1. **Start the Azure Function**
 
    ```bash
    func start
    ```
 
-2. **Tester l'API**
+2. **Test the API**
    
-   L'API sera disponible à `http://localhost:7071/api/mcpserver`
+   The API will be available at `http://localhost:7071/api/mcpserver`
 
-3. **Utiliser les tests REST Client**
+3. **Use REST Client tests**
    
-   Ouvrez les fichiers `.http` dans VS Code et exécutez les requêtes.
+   Open the `.http` files in VS Code and run the requests.
 
-### Déploiement sur Azure
+### Deploy to Azure
 
-Voir le fichier `deploy.md` pour les instructions détaillées de déploiement.
+See `deploy.md` for detailed deployment instructions.
 
 ## 📡 API Endpoints
 
 ### GET /api/mcpserver
 
-Vérification de l'état du serveur MCP.
+Check MCP server status.
 
-**Réponse :**
+**Response:**
 
 ```json
 {
@@ -113,17 +114,17 @@ Vérification de l'état du serveur MCP.
 
 ### POST /api/mcpserver
 
-Endpoint principal pour les requêtes MCP.
+Main endpoint for MCP requests.
 
-**Méthodes MCP supportées :**
+**Supported MCP methods:**
 
-- `initialize` : Initialisation du serveur
-- `tools/list` : Liste des outils disponibles
-- `tools/call` : Exécution d'un outil
-- `resources/list` : Liste des ressources disponibles
-- `resources/read` : Lecture d'une ressource
+- `initialize`: Server initialization
+- `tools/list`: List available tools
+- `tools/call`: Execute a tool
+- `resources/list`: List available resources
+- `resources/read`: Read a resource
 
-**Exemple de requête :**
+**Request example:**
 
 ```json
 {
@@ -141,60 +142,60 @@ Endpoint principal pour les requêtes MCP.
 }
 ```
 
-## 🔧 Outils Azure AI disponibles
+## 🔧 Available Azure AI Tools
 
-Le serveur MCP fournit des outils pour interagir avec Azure AI Foundry :
+The MCP server provides tools to interact with Azure AI Foundry:
 
-- **create_project** : Créer un nouveau projet Azure AI
-- **list_projects** : Lister les projets Azure AI
-- **get_project_info** : Obtenir les informations d'un projet
-- **list_models** : Lister les modèles disponibles
-- **deploy_model** : Déployer un modèle
-- **create_evaluation** : Créer une évaluation
-- **list_evaluations** : Lister les évaluations
+- **create_project**: Create a new Azure AI project
+- **list_projects**: List Azure AI projects
+- **get_project_info**: Get project information
+- **list_models**: List available models
+- **deploy_model**: Deploy a model
+- **create_evaluation**: Create an evaluation
+- **list_evaluations**: List evaluations
 
 ## 🧪 Tests
 
-### Tests fonctionnels
+### Functional tests
 
 ```bash
-# Démarrer la fonction localement
+# Start the function locally
 func start
 
-# Utiliser VS Code REST Client pour exécuter les tests
-# Ouvrir tests/mcp-server.http et cliquer sur "Send Request"
+# Use VS Code REST Client to run tests
+# Open tests/mcp-server.http and click "Send Request"
 ```
 
-### Tests de performance
+### Performance tests
 
-Les tests de performance sont disponibles dans `tests/performance.http` et permettent de tester :
+Performance tests are available in `tests/performance.http` and allow you to test:
 
-- Charge simultanée
-- Temps de réponse
-- Stabilité sous charge
+- Concurrent load
+- Response time
+- Stability under load
 
-### Tests d'erreurs
+### Error tests
 
-Les tests d'erreurs dans `tests/error-cases.http` valident :
+Error tests in `tests/error-cases.http` validate:
 
-- Gestion des erreurs HTTP
-- Validation des données d'entrée
-- Réponses d'erreur MCP
+- HTTP error handling
+- Input data validation
+- MCP error responses
 
 ## 📊 Monitoring
 
-Le serveur inclut un logging détaillé pour :
+The server includes detailed logging for:
 
-- Suivi des requêtes MCP
-- Monitoring des erreurs
-- Métriques de performance
+- MCP request tracking
+- Error monitoring
+- Performance metrics
 
-## 🛡️ Sécurité
+## 🛡️ Security
 
-- Authentification Azure AD intégrée
-- Gestion sécurisée des secrets via Azure Key Vault
-- Validation des données d'entrée
-- Logging sécurisé (pas d'exposition de secrets)
+- Integrated Azure AD authentication
+- Secure secret management via Azure Key Vault
+- Input data validation
+- Secure logging (no secret exposure)
 
 ## 📚 Documentation
 
@@ -203,24 +204,24 @@ Le serveur inclut un logging détaillé pour :
 - [Azure AI Foundry Documentation](https://docs.microsoft.com/en-us/azure/ai-services/)
 - [FastAPI Documentation](https://fastapi.tiangolo.com/)
 
-## 🤝 Contribution
+## 🤝 Contributing
 
-1. Fork le repository
-2. Créer une branche feature (`git checkout -b feature/amazing-feature`)
-3. Commit les changements (`git commit -m 'Add amazing feature'`)
-4. Push vers la branche (`git push origin feature/amazing-feature`)
-5. Ouvrir une Pull Request
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
 
-## 📄 Licence
+## 📄 License
 
-Ce projet est sous licence MIT. Voir le fichier `LICENSE` pour plus de détails.
+This project is licensed under the MIT License. See the `LICENSE` file for details.
 
 ## 🆘 Support
 
-Pour obtenir de l'aide :
+For help:
 
-1. Consultez la documentation dans `tests/README.md`
-2. Vérifiez les issues GitHub existantes
-3. Créez une nouvelle issue avec les détails du problème
+1. See the documentation in `tests/README.md`
+2. Check existing GitHub issues
+3. Create a new issue with details of your problem
 
 
