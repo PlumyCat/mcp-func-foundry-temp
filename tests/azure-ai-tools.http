@@ -1,0 +1,141 @@
+# Tests spécifiques pour les outils Azure AI Foundry
+# Ces tests permettent de vérifier le bon fonctionnement des outils MCP
+
+@baseUrl = http://localhost:7071
+@functionName = mcpserver
+
+###
+# Test 1: Appel de l'outil execute_code - Code simple
+POST {{baseUrl}}/api/{{functionName}}
+Content-Type: application/json
+
+{
+  "jsonrpc": "2.0",
+  "id": 1,
+  "method": "tools/call",
+  "params": {
+    "name": "execute_code",
+    "arguments": {
+      "message": "print('Hello World from Azure AI Foundry!')"
+    }
+  }
+}
+
+###
+# Test 2: Appel de l'outil execute_code - Calcul mathématique
+POST {{baseUrl}}/api/{{functionName}}
+Content-Type: application/json
+
+{
+  "jsonrpc": "2.0",
+  "id": 2,
+  "method": "tools/call",
+  "params": {
+    "name": "execute_code",
+    "arguments": {
+      "message": "import math\nresult = math.sqrt(16) + math.pi\nprint(f'Résultat: {result}')"
+    }
+  }
+}
+
+###
+# Test 3: Appel de l'outil execute_code - Analyse de données
+POST {{baseUrl}}/api/{{functionName}}
+Content-Type: application/json
+
+{
+  "jsonrpc": "2.0",
+  "id": 3,
+  "method": "tools/call",
+  "params": {
+    "name": "execute_code",
+    "arguments": {
+      "message": "import pandas as pd\nimport numpy as np\n\n# Créer des données d'exemple\ndata = {'A': [1, 2, 3, 4, 5], 'B': [10, 20, 30, 40, 50]}\ndf = pd.DataFrame(data)\n\n# Statistiques descriptives\nprint('Statistiques descriptives:')\nprint(df.describe())\n\n# Corrélation\nprint('\\nCorrélation:')\nprint(df.corr())"
+    }
+  }
+}
+
+###
+# Test 4: Appel de l'outil analyze_data - Analyse simple
+POST {{baseUrl}}/api/{{functionName}}
+Content-Type: application/json
+
+{
+  "jsonrpc": "2.0",
+  "id": 4,
+  "method": "tools/call",
+  "params": {
+    "name": "analyze_data",
+    "arguments": {
+      "message": "Analyse les ventes trimestrielles et calcule la tendance",
+      "data_context": "Données de ventes: Q1=100, Q2=150, Q3=200, Q4=175"
+    }
+  }
+}
+
+###
+# Test 5: Appel de l'outil analyze_data - Analyse complexe
+POST {{baseUrl}}/api/{{functionName}}
+Content-Type: application/json
+
+{
+  "jsonrpc": "2.0",
+  "id": 5,
+  "method": "tools/call",
+  "params": {
+    "name": "analyze_data",
+    "arguments": {
+      "message": "Crée un modèle de prédiction et visualise les résultats",
+      "data_context": "Dataset avec colonnes: date, température, humidité, ventes. Prédire les ventes basées sur les conditions météo"
+    }
+  }
+}
+
+###
+# Test 6: Appel de l'outil execute_code - Visualisation
+POST {{baseUrl}}/api/{{functionName}}
+Content-Type: application/json
+
+{
+  "jsonrpc": "2.0",
+  "id": 6,
+  "method": "tools/call",
+  "params": {
+    "name": "execute_code",
+    "arguments": {
+      "message": "import matplotlib.pyplot as plt\nimport numpy as np\n\n# Créer des données\nx = np.linspace(0, 10, 100)\ny = np.sin(x)\n\n# Créer le graphique\nplt.figure(figsize=(10, 6))\nplt.plot(x, y, 'b-', linewidth=2)\nplt.title('Fonction Sinus')\nplt.xlabel('x')\nplt.ylabel('sin(x)')\nplt.grid(True)\nplt.show()\n\nprint('Graphique créé avec succès!')"
+    }
+  }
+}
+
+###
+# Test 7: Erreur - Outil inexistant
+POST {{baseUrl}}/api/{{functionName}}
+Content-Type: application/json
+
+{
+  "jsonrpc": "2.0",
+  "id": 7,
+  "method": "tools/call",
+  "params": {
+    "name": "unknown_tool",
+    "arguments": {
+      "message": "Test d'erreur"
+    }
+  }
+}
+
+###
+# Test 8: Erreur - Arguments manquants
+POST {{baseUrl}}/api/{{functionName}}
+Content-Type: application/json
+
+{
+  "jsonrpc": "2.0",
+  "id": 8,
+  "method": "tools/call",
+  "params": {
+    "name": "execute_code",
+    "arguments": {}
+  }
+}

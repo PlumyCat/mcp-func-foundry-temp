@@ -1,0 +1,100 @@
+# Tests REST Client pour la fonction Azure MCP Server
+# Assurez-vous que votre fonction Azure est démarrée localement avant d'exécuter ces tests
+
+@baseUrl = http://localhost:7071
+@functionName = mcpserver
+
+###
+# Test 1: GET request - Vérifier que le serveur MCP est en cours d'exécution
+GET {{baseUrl}}/api/{{functionName}}
+Content-Type: application/json
+
+###
+# Test 2: POST request - Requête MCP valide avec jsonrpc
+POST {{baseUrl}}/api/{{functionName}}
+Content-Type: application/json
+
+{
+  "jsonrpc": "2.0",
+  "id": 1,
+  "method": "initialize",
+  "params": {
+    "protocolVersion": "2024-11-05",
+    "capabilities": {
+      "roots": {
+        "listChanged": true
+      },
+      "sampling": {}
+    },
+    "clientInfo": {
+      "name": "test-client",
+      "version": "1.0.0"
+    }
+  }
+}
+
+###
+# Test 3: POST request - Requête MCP pour lister les outils
+POST {{baseUrl}}/api/{{functionName}}
+Content-Type: application/json
+
+{
+  "jsonrpc": "2.0",
+  "id": 2,
+  "method": "tools/list",
+  "params": {}
+}
+
+###
+# Test 4: POST request - Requête MCP pour lister les ressources
+POST {{baseUrl}}/api/{{functionName}}
+Content-Type: application/json
+
+{
+  "jsonrpc": "2.0",
+  "id": 3,
+  "method": "resources/list",
+  "params": {}
+}
+
+###
+# Test 5: POST request - Requête MCP pour ping
+POST {{baseUrl}}/api/{{functionName}}
+Content-Type: application/json
+
+{
+  "jsonrpc": "2.0",
+  "id": 4,
+  "method": "ping",
+  "params": {}
+}
+
+###
+# Test 6: POST request - Corps vide (devrait retourner une erreur 400)
+POST {{baseUrl}}/api/{{functionName}}
+Content-Type: application/json
+
+###
+# Test 7: POST request - JSON invalide (devrait retourner une erreur 400)
+POST {{baseUrl}}/api/{{functionName}}
+Content-Type: application/json
+
+{
+  "jsonrpc": "2.0",
+  "id": 5,
+  "method": "invalid_json"
+  // Commentaire invalide dans JSON
+}
+
+###
+# Test 8: PUT request - Méthode non supportée (devrait retourner une erreur 405)
+PUT {{baseUrl}}/api/{{functionName}}
+Content-Type: application/json
+
+{
+  "test": "data"
+}
+
+###
+# Test 9: DELETE request - Méthode non supportée (devrait retourner une erreur 405)
+DELETE {{baseUrl}}/api/{{functionName}}

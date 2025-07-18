@@ -1,0 +1,107 @@
+# Tests de performance pour la fonction Azure MCP Server
+# Ces tests permettent de vérifier les performances et la robustesse
+
+@baseUrl = http://localhost:7071
+@functionName = mcpserver
+
+###
+# Test de charge 1: Requêtes GET multiples
+GET {{baseUrl}}/api/{{functionName}}
+
+###
+GET {{baseUrl}}/api/{{functionName}}
+
+###
+GET {{baseUrl}}/api/{{functionName}}
+
+###
+GET {{baseUrl}}/api/{{functionName}}
+
+###
+GET {{baseUrl}}/api/{{functionName}}
+
+###
+# Test de charge 2: Requêtes POST avec payloads de différentes tailles
+POST {{baseUrl}}/api/{{functionName}}
+Content-Type: application/json
+
+{
+  "jsonrpc": "2.0",
+  "id": 1,
+  "method": "test_small_payload",
+  "params": {
+    "message": "small"
+  }
+}
+
+###
+# Payload moyen
+POST {{baseUrl}}/api/{{functionName}}
+Content-Type: application/json
+
+{
+  "jsonrpc": "2.0",
+  "id": 2,
+  "method": "test_medium_payload",
+  "params": {
+    "message": "medium payload test",
+    "data": {
+      "array": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+      "object": {
+        "nested": {
+          "property": "value",
+          "another": "test"
+        }
+      },
+      "description": "Ce test vérifie le comportement avec un payload de taille moyenne"
+    }
+  }
+}
+
+###
+# Payload large
+POST {{baseUrl}}/api/{{functionName}}
+Content-Type: application/json
+
+{
+  "jsonrpc": "2.0",
+  "id": 3,
+  "method": "test_large_payload",
+  "params": {
+    "message": "large payload test",
+    "data": {
+      "large_array": [
+        {"id": 1, "name": "item1", "description": "description for item 1"},
+        {"id": 2, "name": "item2", "description": "description for item 2"},
+        {"id": 3, "name": "item3", "description": "description for item 3"},
+        {"id": 4, "name": "item4", "description": "description for item 4"},
+        {"id": 5, "name": "item5", "description": "description for item 5"},
+        {"id": 6, "name": "item6", "description": "description for item 6"},
+        {"id": 7, "name": "item7", "description": "description for item 7"},
+        {"id": 8, "name": "item8", "description": "description for item 8"},
+        {"id": 9, "name": "item9", "description": "description for item 9"},
+        {"id": 10, "name": "item10", "description": "description for item 10"}
+      ],
+      "metadata": {
+        "created_at": "2024-01-01T00:00:00Z",
+        "version": "1.0.0",
+        "description": "Ce test vérifie le comportement avec un payload de grande taille contenant de nombreuses données structurées"
+      }
+    }
+  }
+}
+
+###
+# Test de timeout - Requête avec ID très élevé
+POST {{baseUrl}}/api/{{functionName}}
+Content-Type: application/json
+
+{
+  "jsonrpc": "2.0",
+  "id": 999999,
+  "method": "test_timeout",
+  "params": {
+    "simulate_delay": true,
+    "delay_seconds": 5
+  }
+}
