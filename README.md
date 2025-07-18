@@ -220,7 +220,7 @@ This project is licensed under the MIT License. See the `LICENSE` file for detai
 
 For help:
 
-1. See the documentation in `tests/README.md`
+1. See the documentation in `tests/README-REST Client Test Guide.md`
 2. Check existing GitHub issues
 3. Create a new issue with details of your problem
 
