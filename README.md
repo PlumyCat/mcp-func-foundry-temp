@@ -14,7 +14,7 @@ A Model Context Protocol (MCP) server deployed on Azure Functions with Azure AI 
 ## 📁 Project Structure
 
 ```text
-my-mcp-function/
+mcp-func-foundry-temp/
 ├── function_app.py           # Main Azure Function handler
 ├── host.json                 # Azure Functions configuration
 ├── local.settings.json       # Local environment variables
@@ -46,7 +46,7 @@ my-mcp-function/
 
    ```bash
    git clone https://github.com/PlumyCat/mcp-func-foundry-temp.git
-   cd my-mcp-function
+   cd mcp-func-foundry-temp
    ```
 
 2. **Install dependencies**
