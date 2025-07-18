@@ -65,7 +65,7 @@ my-mcp-function/
        "AzureWebJobsStorage": "UseDevelopmentStorage=true",
        "FUNCTIONS_WORKER_RUNTIME": "python",
        "AZURE_CLIENT_ID": "your-client-id",
-       "AZURE_CLIENT_SECRET": "your-client-secret",
+       "AZURE_CLIENT_SECRET_B64": "your-client-secret",
        "AZURE_TENANT_ID": "your-tenant-id",
        "AZURE_SUBSCRIPTION_ID": "your-subscription-id",
        "AZURE_RESOURCE_GROUP_NAME": "your-resource-group",
