@@ -13,7 +13,7 @@ Le projet Azure Function a été configuré avec succès :
 ## Structure du projet
 
 ```
-my-mcp-function/
+mcp-func-foundry-temp/
 ├── function_app.py           # Handler Azure Function principal
 ├── host.json                 # Configuration Azure Functions
 ├── local.settings.json       # Variables d'environnement locales
@@ -35,11 +35,11 @@ az functionapp create \
   --runtime python \
   --runtime-version 3.12 \
   --functions-version 4 \
-  --name my-mcp-function-app \
+  --name mcp-func-foundry-temp-app \
   --storage-account mystorageaccount
 
 # Déployer
-func azure functionapp publish my-mcp-function-app
+func azure functionapp publish mcp-func-foundry-temp-app
 ```
 
 ### Option 2: GitHub Actions
@@ -50,9 +50,9 @@ Utiliser l'extension Azure Functions pour déployer directement.
 
 ## URLs d'accès après déploiement
 
-- **Health check**: `https://my-mcp-function-app.azurewebsites.net/api/mcpserver/health`
-- **Liste des outils**: `https://my-mcp-function-app.azurewebsites.net/api/mcpserver/mcp/tools`
-- **Appel d'outil**: `https://my-mcp-function-app.azurewebsites.net/api/mcpserver/mcp/call`
+- **Health check**: `https://mcp-func-foundry-temp-app.azurewebsites.net/api/mcpserver/health`
+- **Liste des outils**: `https://mcp-func-foundry-temp-app.azurewebsites.net/api/mcpserver/mcp/tools`
+- **Appel d'outil**: `https://mcp-func-foundry-temp-app.azurewebsites.net/api/mcpserver/mcp/call`
 
 ## Variables d'environnement à configurer
 
