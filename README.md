@@ -223,10 +223,4 @@ Pour obtenir de l'aide :
 2. Vérifiez les issues GitHub existantes
 3. Créez une nouvelle issue avec les détails du problème
 
-## 📈 Roadmap
 
-- [ ] Support des websockets pour MCP
-- [ ] Intégration avec Azure OpenAI
-- [ ] Monitoring avancé avec Application Insights
-- [ ] Tests automatisés avec GitHub Actions
-- [ ] Documentation API interactive
